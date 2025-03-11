@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import NamedTuple, List, TypeAlias
+from typing import NamedTuple, List, TypeAlias, overload
 from pandas import read_csv, DataFrame
 from numpy import ndarray, array, linspace, zeros
 from numpy.random import normal as random_normal
@@ -25,7 +25,13 @@ def get_linear_interpolations(data: DataFrame) -> Interpolations:
   
   return _interpolations
 
-def T(t: float | ndarray, interpolations: Interpolations) -> float:
+@overload
+def T(t: float) -> float: ...
+
+@overload
+def T(t: ndarray) -> ndarray: ...
+
+def T(t: float | ndarray, interpolations: Interpolations):
   """ gets linearly interpolated A8 thrust curve value at t = t
 
   Args:
