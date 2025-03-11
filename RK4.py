@@ -1,3 +1,4 @@
+#Copy pasted from 295
 def RK4(f, r, t, tf, h, thetalist, tlist):
     while t<tf:
         k1 = h*f(r,t)
