@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import NamedTuple, List, TypeAlias
 from pandas import read_csv, DataFrame
-from numpy import ndarray, array, linspace
+from numpy import ndarray, array, linspace, zeros
 from numpy.random import normal as random_normal
 import matplotlib.pyplot as plt
 
@@ -25,7 +25,7 @@ def get_linear_interpolations(data: DataFrame) -> Interpolations:
   
   return _interpolations
 
-def T(t: float, interpolations: Interpolations) -> float:
+def T(t: float | ndarray, interpolations: Interpolations) -> float:
   """ gets linearly interpolated A8 thrust curve value at t = t
 
   Args:
@@ -35,9 +35,19 @@ def T(t: float, interpolations: Interpolations) -> float:
   Returns:
       float: thrust force magnitude
   """
-  for interpolation in interpolations:
-    if t >= interpolation.start_time and t < interpolation.stop_time:
-      return ((t - interpolation.start_time) * interpolation.slope + interpolation.y_intercept) * (1 + random_normal() * δT)
+  if isinstance(t, ndarray):
+    out = zeros(shape=t.shape, dtype=float)
+    for idx, _t in enumerate(t):
+      for interpolation in interpolations:
+        if _t >= interpolation.start_time and _t < interpolation.stop_time:
+          out[idx] ((_t - interpolation.start_time) * interpolation.slope + interpolation.y_intercept) * (1 + random_normal() * δT)
+    
+    return out
+  
+  elif isinstance(t, float):
+    for interpolation in interpolations:
+      if t >= interpolation.start_time and t < interpolation.stop_time:
+        return ((t - interpolation.start_time) * interpolation.slope + interpolation.y_intercept) * (1 + random_normal() * δT)
   
   return 0.0
 
