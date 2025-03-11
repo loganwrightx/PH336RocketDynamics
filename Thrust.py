@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import NamedTuple, List
+from typing import NamedTuple, List, TypeAlias
 from pandas import read_csv, DataFrame
 from numpy import ndarray, array, linspace
 from numpy.random import normal as random_normal
@@ -12,7 +12,7 @@ data_dir = "./ThrustData.csv"
 def get_data(data_dir = data_dir) -> DataFrame:
   return read_csv(data_dir)
 
-def get_linear_interpolations(data: DataFrame) -> List[Interpolation]:
+def get_linear_interpolations(data: DataFrame) -> Interpolations:
   _interpolations = []
   _t = data["t"].to_numpy()
   _T = data["T"].to_numpy()
@@ -25,7 +25,7 @@ def get_linear_interpolations(data: DataFrame) -> List[Interpolation]:
   
   return _interpolations
 
-def T(t: float, interpolations: List[Interpolation]) -> float:
+def T(t: float, interpolations: Interpolations) -> float:
   """ gets linearly interpolated A8 thrust curve value at t = t
 
   Args:
@@ -40,13 +40,14 @@ def T(t: float, interpolations: List[Interpolation]) -> float:
       return ((t - interpolation.start_time) * interpolation.slope + interpolation.y_intercept) * (1 + random_normal() * δT)
   
   return 0.0
-    
 
 class Interpolation(NamedTuple):
   start_time: float
   stop_time: float
   y_intercept: float
   slope: float
+
+Interpolations: TypeAlias = List[Interpolation]
 
 if __name__ == "__main__":
   df = get_data()
