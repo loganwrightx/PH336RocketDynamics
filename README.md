@@ -20,7 +20,7 @@ The analysis of a rocket trajectory requires a precise description of the forces
 
 Using Newton's second law, it follows that
 
-$$ \sum \vec{F} = \vec{T(t)} - \vec{F}_{\text{Drag}} - \vec{F}_g - \vec{F}_{\text{Aero}} = m(t) \cdot \ddot{\vec{r}} $$
+$$ \sum \vec{F} = \vec{T(t)} - \vec{F}_ {\text{Drag}} - \vec{F}_ {g} - \vec{F}_{\text{Aero}} = m(t) \cdot \ddot{\vec{r}} $$
 
 This is the differential equation that the simulator aims to solve.
 
