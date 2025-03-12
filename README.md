@@ -1,4 +1,4 @@
-# Project Title: Rk4 Modeling of an A8 Rocket
+# Project Title: Dynamic Modeling of a Propulsive Vehicle
 
 Logan Wright, Abram Bell, Wes Crapo, Matthew Boling
 
