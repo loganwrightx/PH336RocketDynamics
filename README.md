@@ -1,3 +1,7 @@
+# Project Title: Rk4 Modeling of an A8 Rocket
+
+Logan Wright, Abram Bell, Wes Crapo, Matthew Boling
+
 # Experiment Description
 
 This project is an RK4 solver for a rocket subject to aerodynamic loads and nonlinear forces. The models simulated in this environment are to support real experiments over the course of several weeks.
