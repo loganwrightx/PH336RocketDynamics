@@ -28,6 +28,8 @@ This is the differential equation that the simulator aims to solve.
 
 The rocket uses an Estes A8 solid propellant rocket motor. Thrust curve data is publicly available and free for use. Our team did not collect the data, but we use to it model the performance of the motors in our experiments. We use linear interpolation to create a continuous representation of the thrust curve and incorporate small deviations from the data with Monte Carlo methods according to the uncertainties in the motor design. For our purposes, simulations use $\delta{T} = \pm 1$% up to $\delta{T} = \pm 5$%. 
 
+If time permits, and if we need to optimize our computational model, we can generate our own thrust curve data by positioning the engine in a wood block on top of a force sensor. We can measure the force as a function of time and take the average of several acquisitions. 
+
 # Atmospheric Model
 
 We use the NASA tropospheric model. Since we are operating at low altitudes, this will be sufficiently accurate for the case of modeling air density, and thus drag forces.
@@ -57,3 +59,17 @@ Uncertainty will be computed using iterative methods. Since RK4 is so fast and f
 - Launch supplies (launch pad, igniter for motors)
 
 - Lab notebooks and pens
+
+- Wood block and force sensor
+
+- Protractor
+
+- GPS for measuring horizontal travel distance (phones might suffice)
+
+# Expected Results
+
+We expect our experimental results for flight time, maximum altitude, and horizontal distance traveled to pass a Chi-Squared Test ($\alpha = .05$) when compared with our Monte-Carlo simulation. Further refinement with our wind model may be necessary if time permits.
+
+# Timeline
+
+We expect to have completed our computational model by the 20th of Thursday, after which we will collect our computational data. We will then, if time permits, acquire thrust curve data using a force sensor. During the following week, we will monitor weather and select an optimal launch day. We expect the setup, launch, and data acquisition to take no more than three hours. The next week will be dedicated to data analysis, model refinement, and re-acquiring data if necessary.
