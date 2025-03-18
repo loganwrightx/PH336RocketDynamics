@@ -78,4 +78,4 @@ We expect our experimental results for flight time, maximum altitude, and horizo
 
 # Timeline
 
-We expect to have completed our computational model by the 20th of Thursday, after which we will collect our computational data. We will then, if time permits, acquire thrust curve data using a force sensor. During the following week, we will monitor weather and select an optimal launch day. We expect the setup, launch, and data acquisition to take no more than three hours. The next week will be dedicated to data analysis, model refinement, and re-acquiring data if necessary.
+We expect to have completed our computational model by the 20th of March, after which we will collect our computational data. We will then, if time permits, acquire thrust curve data using a force sensor. During the following week, we will monitor weather and select an optimal launch day. We expect the setup, launch, and data acquisition to take no more than three hours. The next week will be dedicated to data analysis, model refinement, and re-acquiring data if necessary.
