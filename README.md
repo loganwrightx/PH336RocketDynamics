@@ -46,7 +46,15 @@ Our wind model consists of a simple normally distributed wind gust model and a s
 
 # Uncertainty Propagation
 
-Uncertainty will be computed using iterative methods. Since RK4 is so fast and flight times will likely last less than 10 seconds in real time, computation time is extremely small per iteration. To approximate our expected performance parameters (max altitude, flight time, landing zone, etc), the simulation will be run hundreds of times and averages over them all with standard deviations representing the associated uncertainties.
+Uncertainty will be computed using iterative methods. Since RK4 is so fast and flight times will likely last less than 10 seconds in real time, computation time is extremely small per iteration. To approximate our expected performance parameters (max altitude, flight time, landing zone, etc), the simulation will be run hundreds of times and averages over them all with standard deviations representing the associated uncertainties. Uncertainties of the following variables will be included in the simulation:
+
+- Initial wind speed and direction
+- Density of air
+- Cross-sectional area of the rocket (across lateral and y axes)
+- Thrust force
+- Parachute deployement time
+- Mass of the rocket (prior to and after fuel expenditure)
+- Initial angle of launch
 
 # Materials List
 
