@@ -1,6 +1,4 @@
 from numpy import ndarray
-# verlet seems pretty cool, I don't remember learning about it
-# Is this somewhat the idea?
 
 def velocity_verlet(x, v, dt, accel):
     a = accel(x)
