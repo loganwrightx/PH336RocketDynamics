@@ -28,8 +28,6 @@ def loop(θ: float, v: float, dt: float, r0: ndarray, plot: bool = False):
         x_list.append(r[R, X])
         y_list.append(r[R, Y])
         t_list.append(t)
-        
-        # transposes r_list so that it's easy to find the maximum y value
     
     max_height = max(y_list)
     
