@@ -12,21 +12,23 @@ The goal of the experiments are to prove/improve our model of a rocket in an aer
 
 The analysis of a rocket trajectory requires a precise description of the forces acting on the body. The exhaustive list for the purpose of this project is shown below:
 
-- Air resistance, acts opposite to te direction of velocity and is proportional to the square of the vehicle speed
+- Air resistance, acts opposite to the direction of velocity and is proportional to the square of the vehicle speed. The quadratic air drag model will be used:
+
+$$  F_{drag} = \frac{1}{2} \rho v^2 C A $$
 
 - Gravity, always points toward earth's center which is the local negative y coordinate
 
-- Thrust force, point in the same direction as velocity but it's magnitude is time and motor dependent
+- Thrust force, point in the same direction as velocity but its magnitude is time and motor dependent. Thrust curve data will either be derived from experimentation or obtained from publicly available data. 
 
-- When thrust is non-zero, mass is reduced in time from the vehicle also contributing to a change in momentum
+- When thrust is non-zero, mass is reduced in time from the vehicle also contributing to a change in momentum. For simplicity, linear mass reduction will be assumed. The mass of an expired rocket will be measured to determine the endpoint. 
 
-- And finally, aerodynamic forces on the body from the sides induced by wind are also accounted for, and operate under normally distributed random processes
+- And finally, aerodynamic forces on the body from the sides induced by wind are also accounted for, and operate under normally distributed random processes. The quadratic air model will again be used. 
 
 Using Newton's second law, it follows that
 
 $$ \sum \vec{F} = \vec{T(t)} - \vec{F}_ {\text{Drag}} - \vec{F}_ {g} - \vec{F}_{\text{Aero}} = m(t) \cdot \ddot{\vec{r}} $$
 
-This is the differential equation that the simulator aims to solve.
+This is the differential equation the simulator aims to solve.
 
 # Motor Model
 
@@ -40,7 +42,7 @@ We use the NASA tropospheric model. Since we are operating at low altitudes, thi
 
 # Wind Model
 
-Our wind model consists of a simple normally distributed wind gust model and a small continuous form breeze in a constant direction. Monte Carlo will also be used for computing a random initial direction for the wind.
+Our wind model consists of a simple normally distributed wind gust model and a small continuous form breeze in a constant direction. Monte Carlo will also be used for computing a random initial direction for the wind. Quadratic air drag will once again be implemented. 
 
 # Uncertainty Propagation
 
