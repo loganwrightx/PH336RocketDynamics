@@ -59,7 +59,10 @@ def T(t: float | ndarray, interpolations: Interpolations):
   return 0.0
 
 def T_experimental_data(t: float) -> float:
-  return cs(t)
+  if t >= 0.0 and t < 4.38 - 3.48:
+    return cs(t + 3.48)
+  else:
+    return 0.0
 
 class Interpolation(NamedTuple):
   start_time: float
