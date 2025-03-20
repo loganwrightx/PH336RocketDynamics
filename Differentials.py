@@ -1,6 +1,6 @@
 from numpy import ndarray, array, pi, dot, float64
 from numpy.linalg import norm
-from Thrust import T, get_data, get_linear_interpolations
+from Thrust import T, T_experimental_data, get_data, get_linear_interpolations
 from Troposphere import Troposphere
 
 temp = 0.0 # celsius ambient temperature outside
@@ -26,8 +26,8 @@ def f(r: ndarray, t: float) -> ndarray:
   v = r[V]
   if abs(norm(v)) > 0.0:
     a = (-1 / 2 * rho * Cd * A * dot(v, v) * v / norm(v) - \
-      m * array([0.0, 0.0, g], dtype=float64) + T(t, interpolations) * array([0.0, 0.0, 1.0], dtype=float64)) / m
+      m * array([0.0, 0.0, g], dtype=float64) + T_experimental_data(t, interpolations) * array([0.0, 0.0, 1.0], dtype=float64)) / m
   else:
-    a = (-m * array([0.0, 0.0, g], dtype=float64) + T(t, interpolations) * array([0.0, 0.0, 1.0], dtype=float64)) / m
+    a = (-m * array([0.0, 0.0, g], dtype=float64) + T_experimental_data(t, interpolations) * array([0.0, 0.0, 1.0], dtype=float64)) / m
   
   return array([v, a], dtype=float64)

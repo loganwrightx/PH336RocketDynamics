@@ -101,14 +101,15 @@ F_cropped = F[startbound:endbound]
 
 cs = CubicSpline(t_cropped, F_cropped)
 
-t_new = linspace(t_cropped.min(), t_cropped.max(), 100)
-F_new = cs(t_new)
+if __name__ == "__main__":
+  t_new = linspace(t_cropped.min(), t_cropped.max(), 100)
+  F_new = cs(t_new)
 
-plt.figure()
-plt.plot(t_cropped,F_cropped, '.', label = "Data")
-plt.plot(t_new,F_new, label = "Cubic Spline")
-plt.legend()
-plt.xlabel("Time (S)")
-plt.ylabel("Force (N)")
-plt.title("Thrust Force Data")
-plt.show()
+  plt.figure()
+  plt.plot(t_cropped,F_cropped, '.', label = "Data")
+  plt.plot(t_new,F_new, label = "Cubic Spline")
+  plt.legend()
+  plt.xlabel("Time (S)")
+  plt.ylabel("Force (N)")
+  plt.title("Thrust Force Data")
+  plt.show()

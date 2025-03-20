@@ -4,6 +4,7 @@ from pandas import read_csv, DataFrame
 from numpy import ndarray, array, linspace, zeros
 from numpy.random import normal as random_normal
 import matplotlib.pyplot as plt
+from experimental_thurstcurve import cs
 
 data_dir = "./ThrustData.csv"
 
@@ -56,6 +57,9 @@ def T(t: float | ndarray, interpolations: Interpolations):
         return ((t - interpolation.start_time) * interpolation.slope + interpolation.y_intercept) * (1 + random_normal() * δT)
   
   return 0.0
+
+def T_experimental_data(t: float) -> float:
+  return cs(t)
 
 class Interpolation(NamedTuple):
   start_time: float
