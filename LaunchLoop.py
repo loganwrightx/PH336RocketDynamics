@@ -52,13 +52,27 @@ def loop(θ: float, φ: float, v0: float, dt: float, r0: ndarray, plot: bool = F
         fig, axs = plt.subplots(2, 3)
         axs: Union[Axes, ndarray[Axes]]
         axs.reshape(2, 3)
-        fig.tight_layout()
+        
         axs[0, 0].plot(t_list, x_list)
+        axs[0, 0].set_title("x vs t")
+        
         axs[0, 1].plot(t_list, y_list)
+        axs[0, 1].set_title("y vs t")
+        
         axs[0, 2].plot(t_list, z_list)
+        axs[0, 2].set_title("z vs t")
+        
         axs[1, 0].plot(t_list, vx_list)
+        axs[1, 0].set_title("vx vs t")
+        
         axs[1, 1].plot(t_list, vy_list)
+        axs[1, 1].set_title("vy vs t")
+        
         axs[1, 2].plot(t_list, vz_list)
+        axs[1, 2].set_title("vz vs t")
+        
+        fig.tight_layout()
+        
         plt.show()
 
     return t, max_height

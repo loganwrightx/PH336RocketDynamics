@@ -4,7 +4,7 @@ from pandas import read_csv, DataFrame
 from numpy import ndarray, array, linspace, zeros
 from numpy.random import normal as random_normal
 import matplotlib.pyplot as plt
-from experimental_thurstcurve import cs
+from experimental_thurstcurve import cs, t_cropped
 
 data_dir = "./ThrustData.csv"
 
@@ -59,8 +59,8 @@ def T(t: float | ndarray, interpolations: Interpolations):
   return 0.0
 
 def T_experimental_data(t: float) -> float:
-  if t >= 0.0 and t < 4.38 - 3.48:
-    return cs(t + 3.48)
+  if t >= 0.0 and t < t_cropped.max() - t_cropped.min():
+    return cs(t + t_cropped.min())
   else:
     return 0.0
 
