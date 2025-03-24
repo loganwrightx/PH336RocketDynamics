@@ -28,6 +28,9 @@ class Wind:
     self.speed_var = speed_var
     self.gust_frequency = gust_frequency
     self.frequency_var = frequency_var
+  
+  def step(self, t: float) -> ndarray:
+    return array([0.0, 0.0, 0.0], dtype=float64)
     
 
 class Gust:
