@@ -12,6 +12,12 @@ class Wind:
   gust_frequency: float
   frequency_var: float
   
+  t_last: float = 0.0
+  prevent_changes: bool = False
+  
+  speed: float
+  direction: ndarray = array([0.0, 0.0, 0.0], dtype=float64)
+  
   def __init__(self,
     wind_direction: ndarray,
     direction_var: float,
@@ -30,7 +36,22 @@ class Wind:
     self.frequency_var = frequency_var
   
   def step(self, t: float) -> ndarray:
-    return array([0.0, 0.0, 0.0], dtype=float64)
+    if self.prevent_changes:
+      return self.direction * self.speed
+    else:
+      wind_speed = random_normal(self.ambient_speed, self.speed_var ** 0.5)
+      
+      x = random_normal(self.wind_direction[0], self.direction_var)
+      y = random_normal(self.wind_direction[1], self.direction_var)
+      z = random_normal(self.wind_direction[2], self.direction_var)
+        
+      
+  
+  def lock(self) -> None:
+    self.prevent_changes = True
+  
+  def unlock(self) -> None:
+    self.prevent_changes = False
     
 
 class Gust:
