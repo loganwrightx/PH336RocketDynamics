@@ -4,7 +4,7 @@ from LaunchLoop import loop
 if __name__ == "__main__":
   ts = []
   zs = []
-  N = 100
+  N = 5
   
   for _ in range(N):
     t, z_max = loop(
@@ -13,11 +13,12 @@ if __name__ == "__main__":
       v0=0,
       dt=1e-3,
       r0=array([0.0, 0.0, 0.0], dtype=float64),
-      plot=False
+      plot=True
     )
     
     ts.append(t)
     zs.append(z_max)
   
+  print(zs)
   print(f"Time of flight: {mean(ts):.3f} +/- {std(ts):.3f} s")
   print(f"Maximum altitude: {mean(zs):.3f} +/- {std(zs):.3f} m")
