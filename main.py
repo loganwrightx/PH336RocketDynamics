@@ -4,7 +4,7 @@ from LaunchLoop import loop
 if __name__ == "__main__":
   ts = []
   zs = []
-  N = 5
+  N = 100
   
   for _ in range(N):
     t, z_max = loop(
@@ -13,7 +13,7 @@ if __name__ == "__main__":
       v0=0,
       dt=1e-3,
       r0=array([0.0, 0.0, 0.0], dtype=float64),
-      plot=True
+      plot=False
     )
     
     ts.append(t)
