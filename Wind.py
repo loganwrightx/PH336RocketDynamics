@@ -1,62 +1,74 @@
 from __future__ import annotations
 from typing import List
-from numpy import ndarray, array, float64, exp
-from numpy.random import normal as random_normal
+from numpy import ndarray, array, float64, exp, log
+from numpy.random import normal, uniform
+
+β = 1 / (2 * log(2))
+
+# wind speeds: ~[[1.3, 3.1] N/NE heading, [7.2, 11.2] N/NE] m/s +/- 10%
 
 class Wind:
-  wind_direction: ndarray
-  direction_var: float
-  ambient_speed: float
-  gust_speed: float
-  speed_var: float
-  gust_frequency: float
-  frequency_var: float
+  avg_direction: ndarray
+  uncert_direction: float
+  avg_speed: float
+  uncert_speed: float
+  frequency: float
+  uncert_frequency: float
   
-  t_last: float = 0.0
-  prevent_changes: bool = False
-  
+  direction: ndarray
   speed: float
-  direction: ndarray = array([0.0, 0.0, 0.0], dtype=float64)
+  t_offset: float = 0.0
+  A: float
+  decay_rate: float = 1.0
   
-  def __init__(self,
-    wind_direction: ndarray,
-    direction_var: float,
-    ambient_speed: float,
-    gust_speed: float,
-    speed_var: float,
-    gust_frequency: float,
-    frequency_var: float
+  def __init__(
+    self,
+    avg_direction: ndarray,
+    uncert_direction: float,
+    avg_speed: float,
+    uncert_speed: float,
+    frequency: float,
+    uncert_frequency: float,
+    decay_rate: float
   ):
-    self.wind_direction = wind_direction
-    self.direction_var = direction_var
-    self.ambient_speed = ambient_speed
-    self.gust_speed = gust_speed
-    self.speed_var = speed_var
-    self.gust_frequency = gust_frequency
-    self.frequency_var = frequency_var
+    if len(avg_direction) != 3:
+      raise ValueError("avg_direction argument in Wind class must be 3-dimensional!")
+    
+    self.avg_direction = avg_direction
+    self.uncert_direction = uncert_direction
+    self.avg_speed = avg_speed
+    self.uncert_speed = uncert_speed
+    self.frequency = frequency
+    self.uncert_frequency = uncert_frequency
+    
+    self.A = avg_speed / decay_rate * exp(decay_rate * decay_rate)
+    
+    self.direction = self.getComponents()
+    self.speed = self.getSpeed(t=0.0)
+  
+  def getComponents(self) -> ndarray:
+    dx = normal(self.avg_direction[0], self.uncert_direction)
+    dy = normal(self.avg_direction[1], self.uncert_direction)
+    dz = 0.0
+    
+    norm = (dx * dx + dy * dy + dz * dz) ** 0.5
+    
+    dx /= norm
+    dy /= norm
+    dz /= norm
+    
+    return array([dx, dy, dz], dtype=float64)
+  
+  def getSpeed(self, t: float) -> float:
+    return self.A * (t - self.t_offset) * exp(-self.decay_rate * (t - self.t_offset))
   
   def step(self, t: float) -> ndarray:
-    if self.prevent_changes:
-      return self.direction * self.speed
-    else:
-      wind_speed = random_normal(self.ambient_speed, self.speed_var ** 0.5)
-      
-      x = random_normal(self.wind_direction[0], self.direction_var)
-      y = random_normal(self.wind_direction[1], self.direction_var)
-      z = random_normal(self.wind_direction[2], self.direction_var)
-        
-      
-  
-  def lock(self) -> None:
-    self.prevent_changes = True
-  
-  def unlock(self) -> None:
-    self.prevent_changes = False
+    if uniform(0, 1) < exp(-self.frequency * (t - self.t_offset) / β):
+      self.t_offset = t
+      self.direction = self.getComponents()
     
-
-class Gust:
-  def __init__(self, t0: float):
-    self.t0 = t0
+    return self.getWind(t=t)
   
-  def __getitem__(self, i: int) -> tuple[float, bool]:
-    return 
+  def getWind(self, t: float) -> ndarray:
+    self.speed = self.getSpeed(t=t)
+    return self.speed * self.direction

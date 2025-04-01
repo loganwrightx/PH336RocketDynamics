@@ -19,5 +19,6 @@ if __name__ == "__main__":
     ts.append(t)
     zs.append(z_max)
   
+  print(zs)
   print(f"Time of flight: {mean(ts):.3f} +/- {std(ts):.3f} s")
   print(f"Maximum altitude: {mean(zs):.3f} +/- {std(zs):.3f} m")
