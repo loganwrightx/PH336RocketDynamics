@@ -7,7 +7,7 @@ from Wind import Wind
 temp = 0.0 # celsius ambient temperature outside || data: [7.2, 16.7] degrees C
 Cd = 0.5
 A = 0.013 ** 2 * pi
-m = 0.100
+m = 0.0171 + 0.0481 # dm = 10.1g
 g = 9.81
 
 side_area = 0.026 * 0.66
