@@ -50,15 +50,13 @@ class Wind:
   def getComponents(self) -> ndarray:
     dx = normal(self.avg_direction[0], self.uncert_direction)
     dy = normal(self.avg_direction[1], self.uncert_direction)
-    dz = 0.0
     
-    norm = (dx * dx + dy * dy + dz * dz) ** 0.5
+    norm = (dx * dx + dy * dy) ** 0.5
     
     dx /= norm
     dy /= norm
-    dz /= norm
     
-    return array([dx, dy, dz], dtype=float64)
+    return array([dx, dy, 0.0], dtype=float64)
   
   def getSpeed(self, t: float) -> float:
     return self.A * (t - self.t_offset) * exp(-self.decay_rate * (t - self.t_offset))

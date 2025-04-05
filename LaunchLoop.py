@@ -46,8 +46,6 @@ def loop(θ: float, φ: float, v0: float, dt: float, r0: ndarray, plot: bool = F
         vz_list.append(r[R_DOT, Z])
         t_list.append(t)
     
-    max_height = max(z_list)
-    
     if plot:
         fig, axs = plt.subplots(2, 3)
         axs: Union[Axes, ndarray[Axes]]
@@ -75,6 +73,6 @@ def loop(θ: float, φ: float, v0: float, dt: float, r0: ndarray, plot: bool = F
         
         plt.show()
 
-    return t, max_height, (x_list[-1] * x_list[-1] + y_list[-1] * y_list[-1]) ** 0.5
+    return t_list[-1], max(z_list), (x_list[-1] * x_list[-1] + y_list[-1] * y_list[-1]) ** 0.5
 
 

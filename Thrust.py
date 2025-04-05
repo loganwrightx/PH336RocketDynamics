@@ -60,7 +60,7 @@ def T(t: float | ndarray, interpolations: Interpolations):
 
 def T_experimental_data(t: float) -> float:
   if 0.0 <= t <= (t_cropped[-1] - t_cropped[0]):
-    return cs(t + t_cropped[0])
+    return cs(t + t_cropped[0]) + δT * random_normal()
   else:
     return 0.0
 

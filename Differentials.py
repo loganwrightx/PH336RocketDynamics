@@ -16,7 +16,7 @@ m = lambda t: m0 - m_dot * t if t < 0.7 else m0 - m_dot * 0.7
 side_area = 0.026 * 0.66
 
 troposphere = Troposphere(temp)
-wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.15, frequency=0.2, uncert_frequency=0.01, decay_rate=1)
+wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.5, frequency=0.2, uncert_frequency=0.05, decay_rate=1)
 
 thrust_data = get_data()
 interpolations = get_linear_interpolations(thrust_data)
@@ -25,7 +25,7 @@ R, V, X, Y, Z = 0, 1, 0, 1, 2
 
 def reset_wind() -> None:
   global wind
-  wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.15, frequency=0.2, uncert_frequency=0.01, decay_rate=1)
+  wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.5, frequency=0.2, uncert_frequency=0.05, decay_rate=1)
 
 def f(r: ndarray, t: float) -> ndarray:
   """
@@ -45,7 +45,5 @@ def f(r: ndarray, t: float) -> ndarray:
     
   else:
     a[2] = (-m(t) * array([g], dtype=float64) + T_experimental_data(t) * array([1.0], dtype=float64)) / m(t)
-  
-  print(v_wind-v)
   
   return array([v, a], dtype=float64)
