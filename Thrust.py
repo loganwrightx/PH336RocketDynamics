@@ -73,7 +73,7 @@ class Interpolation(NamedTuple):
 Interpolations: TypeAlias = List[Interpolation]
 
 if __name__ == "__main__":
-  t = linspace(0.0, t_cropped[-1], 100)
+  t = linspace(0.0, t_cropped[-1] - t_cropped[0], 100)
   
   plt.plot(t, [T_experimental_data(_t) for _t in t])
   plt.show()
