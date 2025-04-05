@@ -16,9 +16,11 @@ if __name__ == "__main__":
       plot=False
     )
     
-    ts.append(t)
-    zs.append(z_max)
+    if z_max > 200: # this circumstance is unreal for our case
+      continue
+    else:
+      ts.append(t)
+      zs.append(z_max)
   
-  print(zs)
   print(f"Time of flight: {mean(ts):.3f} +/- {std(ts):.3f} s")
   print(f"Maximum altitude: {mean(zs):.3f} +/- {std(zs):.3f} m")

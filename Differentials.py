@@ -7,8 +7,11 @@ from Wind import Wind
 temp = 0.0 # celsius ambient temperature outside || data: [7.2, 16.7] degrees C
 Cd = 0.5
 A = 0.013 ** 2 * pi
-m = 0.0171 + 0.0481 # dm = 10.1g
+m0 = 0.0171 + 0.0481 # dm = 10.1g
+m_dot = 0.0041 / 0.86 # change in mass
 g = 9.81
+
+m = lambda t: m0 - m_dot * t if t < 0.86 else m0 - m_dot * 0.86
 
 side_area = 0.026 * 0.66
 
@@ -30,13 +33,17 @@ def f(r: ndarray, t: float) -> ndarray:
   v_wind = wind.step(t=t)
   v = r[V]
   
-  if abs(norm(v)) > 0.0:
-    a = (-1 / 2 * rho * Cd * A * dot(v, v) * v / norm(v) - \
-      m * array([0.0, 0.0, g], dtype=float64) + T_experimental_data(t) * array([0.0, 0.0, 1.0], dtype=float64)) / m
-  else:
-    a = (-m * array([0.0, 0.0, g], dtype=float64) + T_experimental_data(t) * array([0.0, 0.0, 1.0], dtype=float64)) / m
+  a = array([0.0, 0.0, 0.0], dtype=float64)
   
-  if (n := norm(v_wind - v)) > 0.0:
-    a += 1 / 2 * rho * Cd * side_area * dot((v_wind - v), (v_wind - v)) * (v_wind - v) / n / m
+  if (n := norm(v - v_wind)) > 0.0:
+    a[2] = (-1 / 2 * rho * Cd * A * dot((v_wind - v), (v_wind - v)) * (v - v_wind)[2] / n - \
+      m(t) * array([g], dtype=float64) + T_experimental_data(t) * array([1.0], dtype=float64)) / m(t)
+    
+    a[:2] += 1 / 2 * rho * Cd * side_area * dot((v_wind - v), (v_wind - v)) * (v_wind - v)[:2] / n / m(t)
+    
+  else:
+    a[2] = (-m(t) * array([g], dtype=float64) + T_experimental_data(t) * array([1.0], dtype=float64)) / m(t)
+    
+    a[:2] = array([0.0, 0.0], dtype=float64)
   
   return array([v, a], dtype=float64)

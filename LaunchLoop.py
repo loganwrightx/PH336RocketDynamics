@@ -33,10 +33,10 @@ def loop(θ: float, φ: float, v0: float, dt: float, r0: ndarray, plot: bool = F
         
         if t < 0.25 and dr[R_DOT, Z] < 0.0:
             dr[R, Z] = 0
-            dr[R_DOT, Z] = 0 # Keep the rocket from going down when gravity is initially greater than thrust
+            dr[R_DOT, Z] = 0
 
         r += dr
-        t += dt # dt defined in main
+        t += dt
         
         x_list.append(r[R, X])
         y_list.append(r[R, Y])

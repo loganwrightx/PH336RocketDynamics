@@ -59,8 +59,8 @@ def T(t: float | ndarray, interpolations: Interpolations):
   return 0.0
 
 def T_experimental_data(t: float) -> float:
-  if t >= 0.0 and t < t_cropped.max() - t_cropped.min():
-    return cs(t + t_cropped.min())
+  if 0.0 <= t <= (t_cropped[-1] - t_cropped[0]):
+    return cs(t + t_cropped[0])
   else:
     return 0.0
 
@@ -73,10 +73,7 @@ class Interpolation(NamedTuple):
 Interpolations: TypeAlias = List[Interpolation]
 
 if __name__ == "__main__":
-  df = get_data()
-  inter = get_linear_interpolations(df)
-  t = linspace(0.0, 0.6, num=100)
-  T_data = array([T(_t, inter) for _t in t])
+  t = linspace(0.0, t_cropped[-1], 100)
   
-  plt.plot(t, T_data)
+  plt.plot(t, [T_experimental_data(_t) for _t in t])
   plt.show()
