@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List
 from numpy import ndarray, array, float64, exp, log
 from numpy.random import normal, uniform
+from matplotlib.pyplot import plot, show, legend
 
 β = 1 / (2 * log(2))
 
@@ -63,12 +64,30 @@ class Wind:
     return self.A * (t - self.t_offset) * exp(-self.decay_rate * (t - self.t_offset))
   
   def step(self, t: float) -> ndarray:
-    if uniform(0, 1) < exp(-self.frequency * (t - self.t_offset) / β):
+    if uniform(0, 0.5) > exp(-self.frequency * (t - self.t_offset) / β):
       self.t_offset = t
       self.direction = self.getComponents()
     
     return self.getWind(t=t)
   
   def getWind(self, t: float) -> ndarray:
-    self.speed = self.getSpeed(t=t)
-    return self.speed * self.direction
+    return self.direction * self.getSpeed(t=t)
+
+if __name__ == "__main__":
+  wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.15, frequency=0.2, uncert_frequency=0.01, decay_rate=1)
+  
+  t = [0.0]
+  vx = [0.0]
+  vy = [0.0]
+  dt = 1e-3
+  
+  for _ in range(10000):
+    v = wind.step(t=t[-1])
+    vx.append(v[0])
+    vy.append(v[1])
+    t.append(t[-1] + dt)
+  
+  plot(t, vx)
+  plot(t, vy)
+  legend(["vx", "vy"])
+  show()
