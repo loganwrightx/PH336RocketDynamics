@@ -4,7 +4,7 @@ from Thrust import T, T_experimental_data, get_data, get_linear_interpolations
 from Troposphere import Troposphere
 from Wind import Wind
 
-temp = 0.0 # celsius ambient temperature outside || data: [7.2, 16.7] degrees C
+temp = 16.7 # celsius ambient temperature outside || data: [7.2, 16.7] degrees C
 Cd = 0.5
 A = 0.013 ** 2 * pi
 m0 = 0.0171 + 0.0481 # dm = 10.1g
@@ -16,7 +16,7 @@ m = lambda t: m0 - m_dot * t if t < 0.7 else m0 - m_dot * 0.7
 side_area = 0.026 * 0.66
 
 troposphere = Troposphere(temp)
-wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.13, frequency=0.2, uncert_frequency=0.05, decay_rate=1)
+wind = Wind(avg_direction=array([0.75, 0.25, 0.0]), uncert_direction=0.1, avg_speed=7.2, uncert_speed=0.72, frequency=0.2, uncert_frequency=0.05, decay_rate=1)
 
 thrust_data = get_data()
 interpolations = get_linear_interpolations(thrust_data)

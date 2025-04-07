@@ -6,7 +6,7 @@ if __name__ == "__main__":
   ts = []
   zs = []
   rs = []
-  N = 50
+  N = 100
   
   for _ in range(N):
     reset_wind()
@@ -20,7 +20,7 @@ if __name__ == "__main__":
       plot=False
     )
     
-    print(f"Completed loop #{_ + 1}")
+    #print(f"Completed loop #{_ + 1}")
     
     ts.append(t)
     zs.append(z_max)
