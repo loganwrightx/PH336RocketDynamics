@@ -4,7 +4,7 @@ from pandas import read_csv, DataFrame
 from numpy import ndarray, array, linspace, zeros
 from numpy.random import normal as random_normal
 import matplotlib.pyplot as plt
-from experimental_thurstcurve import cs, t_cropped
+from experimental_thurstcurve import cs, total_time
 
 data_dir = "./ThrustData.csv"
 
@@ -59,8 +59,8 @@ def T(t: float | ndarray, interpolations: Interpolations):
   return 0.0
 
 def T_experimental_data(t: float) -> float:
-  if 0.0 <= t <= (t_cropped[-1] - t_cropped[0]):
-    return cs(t + t_cropped[0]) + δT * random_normal()
+  if 0.0 <= t <= (total_time[-1] - total_time[0]):
+    return cs(t + total_time[0]) + δT * random_normal()
   else:
     return 0.0
 
@@ -73,7 +73,7 @@ class Interpolation(NamedTuple):
 Interpolations: TypeAlias = List[Interpolation]
 
 if __name__ == "__main__":
-  t = linspace(0.0, t_cropped[-1] - t_cropped[0], 100)
+  t = linspace(0.0, total_time[-1] - total_time[0], 100)
   
   plt.plot(t, [T_experimental_data(_t) for _t in t])
   plt.show()
