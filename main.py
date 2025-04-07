@@ -6,7 +6,7 @@ if __name__ == "__main__":
   ts = []
   zs = []
   rs = []
-  N = 100
+  N = 1
   
   for _ in range(N):
     reset_wind()
@@ -17,7 +17,7 @@ if __name__ == "__main__":
       v0=0,
       dt=1e-3,
       r0=array([0.0, 0.0, 0.0], dtype=float64),
-      plot=False
+      plot=True
     )
     
     #print(f"Completed loop #{_ + 1}")
