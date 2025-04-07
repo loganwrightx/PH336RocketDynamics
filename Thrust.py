@@ -8,7 +8,7 @@ from experimental_thurstcurve import cs, t_cropped
 
 data_dir = "./ThrustData.csv"
 
-δT = 0.01
+δT = 0.26
 
 def get_data(data_dir = data_dir) -> DataFrame:
   return read_csv(data_dir)
