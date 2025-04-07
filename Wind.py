@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import List
 from numpy import ndarray, array, float64, exp, log
 from numpy.random import normal, uniform
-from matplotlib.pyplot import plot, show, legend
+from matplotlib.pyplot import plot, show, legend, style, xlabel, ylabel, title
 
 β = 1 / (2 * log(2))
 
@@ -72,7 +72,7 @@ class Wind:
     return self.direction * self.getSpeed(t=t)
 
 if __name__ == "__main__":
-  wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=1.3, uncert_speed=0.15, frequency=0.2, uncert_frequency=0.01, decay_rate=1)
+  wind = Wind(avg_direction=array([1.0, 0.0, 0.0]), uncert_direction=0.1, avg_speed=0.2, uncert_speed=0.15, frequency=0.05, uncert_frequency=0.01, decay_rate=1)
   
   t = [0.0]
   vx = [0.0]
@@ -85,6 +85,10 @@ if __name__ == "__main__":
     vy.append(v[1])
     t.append(t[-1] + dt)
   
+  style.use("classic")
+  xlabel("t (s)")
+  ylabel("wind speed (m/s)")
+  title("wind speed vs time")
   plot(t, vx)
   plot(t, vy)
   legend(["vx", "vy"])

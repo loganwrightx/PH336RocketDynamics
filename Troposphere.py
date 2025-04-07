@@ -1,4 +1,6 @@
 from __future__ import annotations
+from numpy import linspace
+from matplotlib.pyplot import plot, xlabel, show, style, legend
 
 C_TO_K = 273.15
 
@@ -17,3 +19,19 @@ class Troposphere:
     _p = self.p(altitude)
     _t = self.t(altitude)
     return _p / (0.2869 * (_t + C_TO_K))
+
+if __name__ == "__main__":
+  t = Troposphere(ambient_temp=10.0)
+  
+  zs = linspace(0.0, 1000.0, num=1000)
+  rhos = [t.rho(z) for z in zs]
+  ts = [t.t(z) for z in zs]
+  ps = [t.p(z) for z in zs]
+  
+  style.use("classic")
+  xlabel("altitude (m)")
+  plot(zs, rhos)
+  plot(zs, ts)
+  plot(zs, ps)
+  legend(["ρ(z)", "T(z)", "p(z)"])
+  show()
