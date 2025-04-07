@@ -170,8 +170,8 @@ curve_3 = array(cs3(total_time))
 average_curve = (curve_1 + curve_2 + curve_3) / 3
 
 t4 = arange(0,len(average_curve)*.01,.01)
-csAVG = CubicSpline(t4, average_curve)
-Average_Spline = csAVG(total_time)
+cs = CubicSpline(t4, average_curve)
+Average_Spline = cs(total_time)
 
 tot_data = vstack((curve_1, curve_2, curve_3))  # Shape becomes (3, N)
 std_devs = std(tot_data, axis=0, ddof=1)
@@ -183,7 +183,7 @@ if __name__ == "__main__":
   curve_1 = array(cs1(total_time))
   curve_2 = array(cs2(total_time))
   curve_3 = array(cs3(total_time))
-  Average_Spline = csAVG(total_time)
+  Average_Spline = cs(total_time)
 
   plt.figure()
   plt.plot(total_time, curve_1, 'r-',  label = "Curve 1")
