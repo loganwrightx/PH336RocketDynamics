@@ -2,7 +2,7 @@ from numpy import array, float64, std, mean
 from Differentials import reset_wind
 from LaunchLoop import loop
 
-if __name__ == "__main__":
+def main():
   ts = []
   zs = []
   rs = []
@@ -31,3 +31,6 @@ if __name__ == "__main__":
   print(f"Time of flight: {mean(ts):.3f} +/- {std(ts):.3f} s")
   print(f"Maximum altitude: {mean(zs):.3f} +/- {std(zs):.3f} m")
   print(f"Radial distance away from launch zone: {mean(rs):.3f} +/- {std(rs):.3f} m")
+
+if __name__ == "__main__":
+  main()
