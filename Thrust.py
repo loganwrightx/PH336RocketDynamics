@@ -4,11 +4,11 @@ from pandas import read_csv, DataFrame
 from numpy import ndarray, array, linspace, zeros
 from numpy.random import normal as random_normal
 import matplotlib.pyplot as plt
-from experimental_thurstcurve import cs, total_time
+from experimental_thurstcurve import cs, total_time, avg_stdev
 
 data_dir = "./ThrustData.csv"
 
-δT = 0.26
+δT = avg_stdev
 
 def get_data(data_dir = data_dir) -> DataFrame:
   return read_csv(data_dir)
