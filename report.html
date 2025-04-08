@@ -7596,8 +7596,8 @@ $\rho$ = air density (kg/m³).</p>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Procedure">Procedure<a class="anchor-link" href="#Procedure">¶</a></h3><p>The project began by finding the thrust curve of the motors, to do this the force sensor was placed on the ground with a wooden block resting on top. An Estes A8 motor was then mounted vertically on the block, inside a drilled shallow hole, aligning the motor with the force sensor. The block was secured using stands to prevent it from tipping over during ignition. An igniter was inserted into the motor using a plug to keep it in place. The force sensor was connected to Logger Pro and data recording began. A launcher was used to attempt to ignite the motor. When it ignited, Logger Pro captured the force over time. This process was repeated multiple times with the hope of ensuring consistency.</p>
-<p>The second part of the project was the launch. After choosing a flat, open launch area with good visibility the launch pad was set up. Using a surveyor's wheel, two observation points were measured out from the launch pad. An Estes Altitrak was then used at each of these points. The wind speed was recorded using an anemometer. Multiple pieces of wadding were placed into the top of the rocket, the parachute was pushed down onto the wadding and the nosecone was placed on top. A motor was installed into the rocket and an igniter was installed into the motor using a plug to hold it in place. It was confirmed that the igniter wires were not touching under the plug and that the igniter had continuity. The rocket was slid down onto the launch pad and the launcher was attached to each side of the igniter. The rocket was launched. The flight was recorded and the video was used to time the flight. From the two observation points, the angle to the rocket's apogee was measured. The rocket was retrieved and damage was assessed. The data was recorded. The process was repeated under different weather conditions until consistency was achieved.</p>
-<p><img alt="alt text" src="trig.png"/></p>
+<p>The second part of the project was the launch. After choosing a flat, open launch area with good visibility the launch pad was set up. Using a surveyor's wheel, two observation points were measured out in perpendicular directions from the launch pad. The wind speed was recorded using an anemometer. Multiple pieces of wadding were placed into the top of the rocket, the parachute was pushed down onto the wadding and the nosecone was placed on top. A motor was installed into the rocket and an igniter was installed into the motor using a plug to hold it in place. It was confirmed that the igniter wires were not touching under the plug and that the igniter had continuity. The rocket was slid down onto the launch pad and the launcher was attached to each side of the igniter. The rocket was launched. An Estes Altitrak was then used at each of the observation points, the trigger was held as the rocket was launched and the Altitrak was pointed at the rocket, only released once the angle stopped increasing. The flight was recorded and the video was used to time the flight. From the two observation points, the angle to the rocket's apogee was measured. The rocket was retrieved and damage was assessed. The data was recorded. The process was repeated under different weather conditions until consistency was achieved.</p>
+<p><img alt="alt text" src="trig.jpg"/></p>
 </div>
 </div>
 </div>
@@ -7610,7 +7610,11 @@ $\rho$ = air density (kg/m³).</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Data">Data<a class="anchor-link" href="#Data">¶</a></h3><p>The following thrust-curve data was recorded for an Estes A8 Motor (n = 3). The standard deviation between the trials, averaging across all datapoints, was .26 N.</p>
 <p><img alt="alt text" src="Updated_Thrust_Curve_Data.png"/></p>
-<p>On the first test day, average wind speed was 3 mph (1.3 m/s) ±10% from the south-southwest, with gusts reaching 7 mph (3.1 m/s) ±10%. The temperature was $7 \pm 2 ^\circ\text{C}$. Horizontal distances for trials 2 through 6 were 2, 6, 15, 12, and 9 meters ±1. From a fixed distance of 30 ±1 meters, the measured angles to the apex of each rockets flight were 59°, 56°, 62°, 55°, 63°, and 54° ±2°. From a distance of 50 ±1 meters, the angles recorded were 39°, 48°, 30°, 50°, 42°, and 40° ±2°.</p>
+<p>The following conditions and data were recorded for the first and second launch days, respectively.</p>
+<p><img alt="alt text" src="Launch_Data_1.png">
+<img alt="alt text" src="Launch_Data_2.png"/></img></p>
+<p>The following displays qualitative results of position and velocity from our computational model.</p>
+<p><img alt="alt text" src="flight2.png"/></p>
 </div>
 </div>
 </div>
@@ -7635,12 +7639,13 @@ $\rho$ = air density (kg/m³).</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 id="Analysis">Analysis<a class="anchor-link" href="#Analysis">¶</a></h3><p>We used basic trigonometry to calculate apogee. Using the angle to the apex and the horizontal distance, the height was given by:</p>
 <p>$$
-y = d \cdot \tan(\theta)
+y = d \cdot \tan(\theta) + h
 $$</p>
 <p>where<br/>
 $y$ = apogee (m),<br/>
 $d$ = horizontal distance from observer to launch point (m),<br/>
-$\theta$ = measured angle of elevation to the rocket at its apex.</p>
+$\theta$ = measured angle of elevation to the rocket at its apex,<br/>
+$h$ = approximate height to each observer's eyes.</p>
 <p>Uncertainty in the height measurement was calculated via propagation of error:</p>
 <p>$$
 \delta y = \sqrt{ \left( d \cdot \sec^2(\theta) \cdot \delta\theta \right)^2 + \left( \tan(\theta) \cdot \delta d \right)^2 }
@@ -7651,21 +7656,39 @@ $\delta \theta$ = uncertainty in the angle,<br/>
 $\delta d$ = uncertainty in horizontal distance (m).</p>
 <p>To combine apogee results from multiple measurements with different uncertainties, we used a weighted average:</p>
 <p>$$
-\bar{x} = \frac{ \frac{x_1}{\sigma_1^2} + \frac{x_2}{\sigma_2^2} }{ \frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} }
+\bar{y} = \frac{ \frac{y_1}{\sigma_1^2} + \frac{y_2}{\sigma_2^2} }{ \frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} }
 $$</p>
 <p>$$
 \sigma = \frac{1}{ \sqrt{ \frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2} } }
 $$</p>
 <p>where<br/>
-$\bar{x}$ = combined best estimate for height (m),<br/>
-$x_1, x_2$ = individual height measurements (m),<br/>
+$\bar{y}$ = combined best estimate for height (m),<br/>
+$y_1, y_2$ = individual height measurements (m),<br/>
 $\sigma_1, \sigma_2$ = corresponding uncertainties (m),<br/>
 $\sigma$ = uncertainty of the combined height estimate (m).</p>
 <p>The first launch day yielded the following experimental results. The total height reached was $47 \pm 6$ meters. Total hang time was $7.2 \pm 0.8$ seconds. The horizontal distance traveled was $9 \pm 4$ meters.</p>
 <p>The Chi-Squared Test was employed to compare our Monte-Carlo data with experimental data. Time of flight, apex height, and radial distance traveled were compared. Chi-squared was calculated by</p>
 <p>$$ \chi ^2 = \sum \frac{(measured - expected)^2}{\sigma ^2} $$
 $$ \sigma = \sqrt{\sigma_m ^2 + \sigma_e ^2} $$</p>
-<p>With 2 degrees of freedom, the p-value for the first and second days were as follows:</p>
+<p>With 2 degrees of freedom, the p-value for the first and second days (respectively) were as follows:</p>
+<p><img alt="alt text" src="Data_Analysis_1.png"/></p>
+<p><img alt="alt text" src="Data_Analysis_2.png"/></p>
+<p>With a p-value of .25 for our first launch, we are confident our computational model matches the experimental results of day one. However, with a p-value of .003 for our second launch, we cannot say these datasets match. The biggest contribution to discrepancy in both launch days arises from a difference in apogee. We predict this was a result of damage to the rocket body. The asymmetric shape caused the rocket to deviate at a sharper angle, decreasing the apex height while maintaining similar flight time. This was especially observed during the second day of launching. Large uncertainties in the measured radial distance also contributed to a smaller chi-squared value. This points towards our wind model not being completely accurate, as we would expect greater standard deviation in our predicted radial distance. Lastly, we note excellent agreement with our measured and predicted time of flight, suggesting our thrust-curve data acquisition was robust.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h3 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">¶</a></h3><p>Our goal was to create a computational model to precisely and accurately characterize the flight of our rocket. To do this we introduced multiple experimental variables to incrementally produce results closer to our measured data. We created a thrust curve from our motors, then measured multiple varibles to implement into our code; some of these variables include wind speed and direction, air temperature, and launch angle. After measuring our experimental data and producing a functioning python approximation, we compared the simulation to our measured data and found that from the less windy day, our simulation fits our observed values. From the more windy day, our simulation unfortunately didn't fit the data as well, we believe this is at least in part due to our rockets off-nominal structural integrity.</p>
+<p>This simulation made some assumptions including but not limited to air resistance being assumed to follow the quadratic air drag model. We also assumed that air density varied with altitude, modeled using NASA’s Troposphere equations. We also assumed the launch and landing elevations were the same, and the rocket was modeled with a constant shape — cylindrical with a conical tip. Mass was assumed to follow a linear decrease during fuel consumption.</p>
+<p>We used trigonometry and weighted averages to calculate the average height. We used simple newtonian mechanics in our code through Runge-Kutta 4 to find flight characterizations and calculus to find the uncertainties.</p>
+<p>We had a multitude of difficulties including wires that were short-circuiting that we fixed with solder and heat shrink, rockets that were slightly bent after parachute failure and difficulty in finding a suitable launch location.</p>
+<p>Future research to expand upon ours may include exploring new wind models and six degree of freedom rigid body mechanics, incorporating these changes would improve accuracy of apogee approximations. We would also allow for a time and position reliant model. We would use rockets that are in better condition, with parachutes that actually open and igniters that actually ignite. We will also choose better launch locations from the beginning.</p>
 </div>
 </div>
 </div>
