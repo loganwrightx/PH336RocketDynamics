@@ -28,13 +28,13 @@ def loop(θ: float, φ: float, v0: float, dt: float, r0: ndarray, plot: bool = F
     vy_list = [r[R_DOT, Y]]
     vz_list = [r[R_DOT, Z]]
 
-    while r[R, Z] >= 0.0:
+    while r[R, Z] >= -1e-3:
         dr = RK4(f, r, t, dt)
         
-        if t < 0.25 and dr[R_DOT, Z] < 0.0:
+        if t < 0.5 and dr[R_DOT, Z] < 0.0:
             dr[R, Z] = 0
             dr[R_DOT, Z] = 0
-
+        
         r += dr
         t += dt
         
