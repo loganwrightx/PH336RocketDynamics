@@ -6,7 +6,7 @@ def main():
   ts = []
   zs = []
   rs = []
-  N = 500
+  N = 50
   
   for _ in range(N):
     reset_wind()
@@ -22,12 +22,11 @@ def main():
     
     #print(f"Completed loop #{_ + 1}")
     
-    if z_max > 10.0:
-      ts.append(t)
-      zs.append(z_max)
-      rs.append(radial_dist)
+    ts.append(t)
+    zs.append(z_max)
+    rs.append(radial_dist)
   
-  print(len(ts))
+  print(ts)
   print(f"Time of flight: {mean(ts):.3f} +/- {std(ts):.3f} s")
   print(f"Maximum altitude: {mean(zs):.3f} +/- {std(zs):.3f} m")
   print(f"Radial distance away from launch zone: {mean(rs):.3f} +/- {std(rs):.3f} m")
